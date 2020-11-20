@@ -2956,7 +2956,7 @@ img{
 .question-block .inner-box{
 	position:relative;
 	padding-left:135px;
-	padding-bottom:90px;
+	/*padding-bottom:90px;*/
 }
 
 .question-block .inner-box .icon-box{

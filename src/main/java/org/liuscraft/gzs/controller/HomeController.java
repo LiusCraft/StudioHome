@@ -6,10 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.tomcat.util.json.JSONParser;
 import org.liuscraft.gzs.mapper.*;
-import org.liuscraft.gzs.pojo.BbsDiscussionTag;
-import org.liuscraft.gzs.pojo.BbsDiscussions;
-import org.liuscraft.gzs.pojo.BbsTags;
-import org.liuscraft.gzs.pojo.HomeSetting;
+import org.liuscraft.gzs.pojo.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping
@@ -40,6 +34,9 @@ public class HomeController {
 
     @Resource
     MemberMapper memberMapper;
+
+    @Resource
+    SlideMapper slideMapper;
 
     @GetMapping
     public String index(Model model){
@@ -64,20 +61,44 @@ public class HomeController {
         wrapper = new QueryWrapper();
         wrapper.in("tag_id", tagIdList.toArray());
         List<BbsDiscussionTag> bbsDiscussionTags = bbsDiscussionTagMapper.selectList(wrapper);
-        List<Integer> discussionIdList = new ArrayList<>();
+        HashMap<Integer, Integer[]> tagIds = new HashMap<>();
         for (BbsDiscussionTag bbsDiscussionTag : bbsDiscussionTags) {
+            List<Integer> discussionIdList = new ArrayList<>();
             discussionIdList.add(bbsDiscussionTag.getDiscussionId());
+            if (tagIds.get(bbsDiscussionTag.getTagId())!=null){
+                discussionIdList.addAll(Arrays.asList(tagIds.get(bbsDiscussionTag.getTagId())));
+            }
+            //System.out.println(discussionIdList.size());
+            Integer[] discussionIds = new Integer[discussionIdList.size()];
+            discussionIdList.toArray(discussionIds);
+            tagIds.put(bbsDiscussionTag.getTagId(), discussionIds);
         }
         // 查询文章标题
-        List<BbsDiscussions> bbsDiscussionsList = new ArrayList<>();
-        if (discussionIdList.size()>0) {
-            wrapper = new QueryWrapper();
-            wrapper.in("id", discussionIdList.toArray());
-            bbsDiscussionsList = bbsDiscussionsMapper.selectList(wrapper);
+        List<HashMap<String, Object>> bbsList = new ArrayList<>();
+        for (Map.Entry<Integer, Integer[]> integerEntry : tagIds.entrySet()) {
+            HashMap<String, Object> bbs = new HashMap<>();
+            List<BbsDiscussions> bbsDiscussionsList = new ArrayList<>();
+            bbs.put("tagId", integerEntry.getKey());
+            if (integerEntry.getValue().length>0) {
+
+                wrapper = new QueryWrapper();
+                Integer[] ids = new Integer[integerEntry.getValue().length];
+                Arrays.asList(integerEntry.getValue()).toArray(ids);
+                wrapper.in("id", ids);
+                bbsDiscussionsList = bbsDiscussionsMapper.selectList(wrapper);
+            }
+            bbs.put("discussionsList", bbsDiscussionsList);
+            bbsList.add(bbs);
         }
-        model.addAttribute("bbsDiscussionsList", bbsDiscussionsList);
+        // 查询成员
+        List<Member> memberList = memberMapper.selectList(null);
+        List<Slide> slideList = slideMapper.selectList(null);
+
+        model.addAttribute("bbsList", bbsList);
         model.addAttribute("bbsTagsList", bbsTagsList);
         model.addAttribute("homeSetting", homeSettingMap);
+        model.addAttribute("memberList", memberList);
+        model.addAttribute("slideList", slideList);
         return "index";
     }
 }
