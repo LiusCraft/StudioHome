@@ -148,7 +148,7 @@
                 <div class="auto-container">
                     <div class="content-box">
                         <h2 th:text="${slide.text}"></h2>
-                        <div class="btn-box"><a th:href="${slide.url}" class="theme-btn btn-style-one"><span class="btn-title" th:text="${slide.btnName}"></span></a></div>
+                        <div class="btn-box"><a th:href="${slide.url}" th:target="${slide.target}" class="theme-btn btn-style-one"><span class="btn-title" th:text="${slide.btnName}"></span></a></div>
                     </div>
                 </div>
             </div>
@@ -258,7 +258,7 @@
                                             <!-- Content Column -->
                                             <div class="content-column col-lg-12 col-md-12 col-sm-12">
                                                 <div class="inner-column">
-                                                    <h2><a href="matches-single.html" th:text="${discussions.title}"></a></h2>
+                                                    <h2><a th:href="${homeSetting.bbsUrl}+'d/'+${discussions.id}" th:text="${discussions.title}" target="_blank"></a></h2>
                                                     <div class="date" th:text="'发布时间：' + ${discussions.createdAt}"></div>
                                                 </div>
                                             </div>
@@ -419,7 +419,7 @@
                                 <span class="icon flaticon-question"></span>
                             </div>
                             <h3><a href="#" th:text="${member.name}"></a></h3>
-                            <div class="text" th:text="${member.introduce}"></div>
+                            <div class="text" th:utext="${member.introduce}"></div>
                         </div>
                     </div>
                 </div>

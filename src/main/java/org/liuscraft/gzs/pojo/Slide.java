@@ -9,4 +9,5 @@ public class Slide {
     private String btnName;
     private String url;
     private String imgUrl;
+    private String target;
 }
