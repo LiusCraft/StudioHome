@@ -1,0 +1,632 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title th:text="${homeSetting.title}"></title>
+    <!-- Stylesheets -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/responsive.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]>
+    <script src="/js/respond.js"></script><![endif]-->
+</head>
+
+<body>
+
+<div class="page-wrapper">
+    <!-- Preloader -->
+    <div class="preloader"><div class="icon"></div></div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <!-- Header Top -->
+        <div class="header-top">
+            <div class="auto-container clearfix">
+
+                <div class="top-left clearfix">
+                    <ul class="info-list">
+                        <li>欢迎访问协同创新工作室</li>
+                    </ul>
+                </div>
+
+                <div class="top-right">
+                    <ul class="social-icons">
+                        <li><a href="#"><span class="fab fa-twitter"></span></a></li>
+                        <li><a href="#"><span class="fab fa-facebook-square"></span></a></li>
+                        <li><a href="#"><span class="fab fa-pinterest-p"></span></a></li>
+                        <li><a href="#"><span class="fab fa-instagram"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header Upper -->
+        <div class="header-upper">
+            <div class="inner-container">
+                <div class="auto-container clearfix">
+                    <!--Logo-->
+                    <div class="logo-outer">
+                        <div class="logo"><a href="index.html"><img src="/images/logo.png" alt="" title="Gamon - Digital Gaming and Esports HTML Template"></a></div>
+                    </div>
+
+                    <!--Nav Box-->
+                    <div class="nav-outer clearfix">
+                        <!--Mobile Navigation Toggler-->
+                        <div class="mobile-nav-toggler"><span class="icon flaticon-menu-1"></span></div>
+
+                        <!-- Main Menu -->
+                        <nav class="main-menu navbar-expand-md navbar-light">
+                            <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
+                                <ul class="navigation clearfix pull-left">
+                                    <li class="dropdown"  th:each="link : ${homeSetting.links}"><a th:href="${link.url}" th:text="${link.name}" th:target="${link.target}"></a>
+                                        <ul th:if="${link.get('two')}!=null">
+                                            <li th:each="two : ${link.two}"><a th:href="${two.url}" th:text="${two.name}" th:target="${two.target}"></a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+<!--                                <ul class="navigation pull-right clearfix">-->
+<!--                                    <li class="dropdown"><a href="matches.html">Matches</a>-->
+<!--                                        <ul>-->
+<!--                                            <li><a href="matches.html">Matches</a></li>-->
+<!--                                            <li><a href="matches-single.html">Matches Single</a></li>-->
+<!--                                        </ul>-->
+<!--                                    </li>-->
+<!--                                    <li class="dropdown"><a href="blog.html">Blog</a>-->
+<!--                                        <ul>-->
+<!--                                            <li><a href="blog.html">Blog</a></li>-->
+<!--                                            <li><a href="blog-single.html">Blog Single</a></li>-->
+<!--                                        </ul>-->
+<!--                                    </li>-->
+<!--                                    <li><a href="contact.html">Contacts</a></li>-->
+<!--                                </ul>-->
+                            </div>
+                        </nav>
+                        <!-- Main Menu End-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Header Upper-->
+
+        <!-- Sticky Header  -->
+        <div class="sticky-header">
+            <div class="auto-container clearfix">
+                <!--Logo-->
+                <div class="logo pull-left">
+                    <a href="index.html" title=""><img src="/images/logo.png" alt="" title=""></a>
+                </div>
+                <!--Right Col-->
+                <div class="pull-right">
+                    <!-- Main Menu -->
+                    <nav class="main-menu clearfix">
+                        <!--Keep This Empty / Menu will come through Javascript-->
+                    </nav><!-- Main Menu End-->
+                </div>
+            </div>
+        </div><!-- End Sticky Menu -->
+
+        <!-- Mobile Menu  -->
+        <div class="mobile-menu">
+            <div class="menu-backdrop"></div>
+            <div class="close-btn"><span class="icon flaticon-close"></span></div>
+
+            <nav class="menu-box">
+                <div class="nav-logo"><a href="index.html"><img src="/images/logo.png" alt="" title=""></a></div>
+                <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
+                <!--Social Links-->
+                <div class="social-links">
+                    <ul class="clearfix">
+                        <li><a href="#"><span class="fab fa-twitter"></span></a></li>
+                        <li><a href="#"><span class="fab fa-facebook-square"></span></a></li>
+                        <li><a href="#"><span class="fab fa-pinterest-p"></span></a></li>
+                        <li><a href="#"><span class="fab fa-instagram"></span></a></li>
+                        <li><a href="#"><span class="fab fa-youtube"></span></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div><!-- End Mobile Menu -->
+    </header>
+    <!-- End Main Header -->
+
+    <!-- Banner Section -->
+    <section class="banner-section">
+        <div class="banner-carousel owl-theme owl-carousel">
+            <!-- Slide Item -->
+            <div class="slide-item">
+                <div class="image-layer" style="background-image:url(/images/main-slider/1.jpg)"></div>
+
+                <div class="auto-container">
+                    <div class="content-box">
+                        <h2>幻灯片1 <br> 啦啦啦</h2>
+                        <div class="btn-box"><a href="#" class="theme-btn btn-style-one"><span class="btn-title">浏览更多</span></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End Banner Section -->
+
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+        <div class="auto-container">
+            <!-- Sec Title -->
+            <div class="sec-title centered">
+                <div class="title">欢迎访问协同创新工作室</div>
+                <h2>工作室介绍</h2>
+            </div>
+
+            <div class="row clearfix">
+
+                <!--Default Portfolio Item-->
+                <div class="default-portfolio-item col-lg-4 col-md-4 col-sm-12 wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                    <div class="inner-box hvr-bob">
+                        <figure class="image-box"><img src="/images/gallery/1.jpg" alt=""></figure>
+                        <!--Overlay Box-->
+                        <div class="overlay-box">
+                            <div class="overlay-inner">
+                                <div class="content">
+                                    <h3><a href="#">物联网开发 <br> 动态</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Default Portfolio Item-->
+                <div class="default-portfolio-item col-lg-4 col-md-4 col-sm-12 wow fadeInUp" data-wow-delay="300ms" data-wow-duration="1500ms">
+                    <div class="inner-box hvr-bob">
+                        <figure class="image-box"><img src="/images/gallery/2.jpg" alt=""></figure>
+                        <!--Overlay Box-->
+                        <div class="overlay-box">
+                            <div class="overlay-inner">
+                                <div class="content">
+                                    <h3><a href="#">游戏开发 <br> 动态</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Default Portfolio Item-->
+                <div class="default-portfolio-item col-lg-4 col-md-4 col-sm-12 wow fadeInUp" data-wow-delay="600ms" data-wow-duration="1500ms">
+                    <div class="inner-box hvr-bob">
+                        <figure class="image-box"><img src="/images/gallery/3.jpg" alt=""></figure>
+                        <!--Overlay Box-->
+                        <div class="overlay-box">
+                            <div class="overlay-inner">
+                                <div class="content">
+                                    <h3><a href="#">应用开发 <br> 动态</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Lower Box -->
+            <div class="lower-box">
+                <div class="text">本工作室主要是 物联网、unity、网站等
+                    <br>
+                    语言：cshap、java、JavaWeb、Android、C/C++、unity、等
+                    <br>
+                    工作室地址: "湖北城市建设职业技术学院-信息大楼B605"</div>
+            </div>
+        </div>
+    </section>
+    <!-- End Welcome Section -->
+
+    <!-- Gallery Section -->
+
+    <!-- End Gallery Section -->
+
+    <!-- Matches Section -->
+    <section class="matches-section">
+        <div class="auto-container">
+            <!-- Sec Title -->
+            <div class="sec-title centered">
+                <div class="title">Studio Message</div>
+                <h2>工作室动态</h2>
+            </div>
+            <!-- Matches Info Tabs-->
+            <div class="matches-info-tabs">
+                <!-- Matches Tabs-->
+                <div class="matches-tabs tabs-box">
+                    <!--Tab Btns-->
+                    <ul class="tab-btns tab-buttons clearfix">
+                        <li data-tab="#prod-all" class="tab-btn" th:each="bbsTags : ${bbsTagsList}"><span th:text="${bbsTags.name}"></span></li>
+                    </ul>
+                    <!--Tabs Container-->
+                    <div class="tabs-content">
+                        <!--Tab / Active Tab-->
+                        <div class="tab active-tab" id="prod-all">
+                            <div class="content">
+                                <!-- Matches Block -->
+                                <div class="matches-block" th:each="bbsDiscussions :${bbsDiscussionsList}">
+                                    <div class="inner-block">
+                                        <div class="row clearfix">
+
+                                            <!-- Content Column -->
+                                            <div class="content-column col-lg-12 col-md-12 col-sm-12">
+                                                <div class="inner-column">
+                                                    <h2><a href="matches-single.html" th:text="${bbsDiscussions.title}"></a></h2>
+                                                    <div class="date" th:text="'发布时间：' + ${bbsDiscussions.createdAt}"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Tab-->
+                        <div class="tab" id="prod-matches">
+                            <div class="content">
+
+                                <!-- Matches Block -->
+                                <div class="matches-block">
+                                    <div class="inner-block">
+                                        <div class="row clearfix">
+
+                                            <!-- Content Column -->
+                                            <div class="content-column col-lg-12 col-md-12 col-sm-12">
+                                                <div class="inner-column">
+                                                    <ul class="tags">
+                                                        <li>学生发布</li>
+                                                        <li>物联网</li>
+                                                    </ul>
+                                                    <div class="title">发布者 刘顺顺</div>
+                                                    <h2><a href="matches-single.html">在2020年11月1日金砖堲一带一路物联网比赛取得第二名成绩</a></h2>
+                                                    <div class="date">2020年11月19日 16点40分</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!--Tab-->
+                        <div class="tab" id="prod-results">
+                            <div class="content">
+
+                                <!-- Matches Block -->
+                                <div class="matches-block">
+                                    <div class="inner-block">
+                                        <div class="row clearfix">
+
+                                            <!-- Content Column -->
+                                            <div class="content-column col-lg-12 col-md-12 col-sm-12">
+                                                <div class="inner-column">
+                                                    <ul class="tags">
+                                                        <li>学生发布</li>
+                                                        <li>工作室</li>
+                                                    </ul>
+                                                    <div class="title">发布者 刘顺顺</div>
+                                                    <h2><a href="matches-single.html">工作室在11月18日已差不多装修完成，可进入使用</a></h2>
+                                                    <div class="date">2020年11月19日 16点40分</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Matches Section -->
+
+    <!-- Gallery Section Two -->
+    <section class="gallery-section-two">
+
+        <div class="auto-container">
+            <!-- Sec Title -->
+            <div class="sec-title centered">
+                <div class="title">Studio honor map</div>
+                <h2>工作室荣誉图</h2>
+            </div>
+
+            <div class="row clearfix">
+
+                <!--Gallery Item-->
+                <div class="gallery-item col-lg-4 col-md-6 col-sm-12 wow fadeInLeft" data-wow-delay="0ms">
+                    <div class="inner-box">
+                        <figure class="image-box">
+                            <img src="/images/gallery/17.jpg" alt="">
+                            <!--Overlay Box-->
+                            <div class="overlay-box">
+                                <div class="overlay-inner">
+                                    <div class="content">
+                                        <a href="#" class="link"><span class="icon flaticon-unlink"></span></a>
+                                        <a href="/images/gallery/17.jpg" data-fancybox="gallery-2" data-caption="" class="link"><span class="icon flaticon-add"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+
+                <!--Gallery Item-->
+                <div class="gallery-item col-lg-4 col-md-6 col-sm-12 wow fadeInLeft" data-wow-delay="300ms">
+                    <div class="inner-box">
+                        <figure class="image-box">
+                            <img src="/images/gallery/18.jpg" alt="">
+                            <!--Overlay Box-->
+                            <div class="overlay-box">
+                                <div class="overlay-inner">
+                                    <div class="content">
+                                        <a href="#" class="link"><span class="icon flaticon-unlink"></span></a>
+                                        <a href="/images/gallery/18.jpg" data-fancybox="gallery-2" data-caption="" class="link"><span class="icon flaticon-add"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+
+                <!--Gallery Item-->
+                <div class="gallery-item col-lg-4 col-md-6 col-sm-12 wow fadeInLeft" data-wow-delay="600ms">
+                    <div class="inner-box">
+                        <figure class="image-box">
+                            <img src="/images/gallery/19.jpg" alt="">
+                            <!--Overlay Box-->
+                            <div class="overlay-box">
+                                <div class="overlay-inner">
+                                    <div class="content">
+                                        <a href="#" class="link"><span class="icon flaticon-unlink"></span></a>
+                                        <a href="/images/gallery/19.jpg" data-fancybox="gallery-2" data-caption="" class="link"><span class="icon flaticon-add"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+
+                <!--Gallery Item-->
+                <div class="gallery-item col-lg-4 col-md-6 col-sm-12 wow fadeInLeft" data-wow-delay="0ms">
+                    <div class="inner-box">
+                        <figure class="image-box">
+                            <img src="/images/gallery/20.jpg" alt="">
+                            <!--Overlay Box-->
+                            <div class="overlay-box">
+                                <div class="overlay-inner">
+                                    <div class="content">
+                                        <a href="#" class="link"><span class="icon flaticon-unlink"></span></a>
+                                        <a href="/images/gallery/20.jpg" data-fancybox="gallery-2" data-caption="" class="link"><span class="icon flaticon-add"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+
+                <!--Gallery Item-->
+                <div class="gallery-item col-lg-4 col-md-6 col-sm-12 wow fadeInLeft" data-wow-delay="300ms">
+                    <div class="inner-box">
+                        <figure class="image-box">
+                            <img src="/images/gallery/21.jpg" alt="">
+                            <!--Overlay Box-->
+                            <div class="overlay-box">
+                                <div class="overlay-inner">
+                                    <div class="content">
+                                        <a href="#" class="link"><span class="icon flaticon-unlink"></span></a>
+                                        <a href="/images/gallery/21.jpg" data-fancybox="gallery-2" data-caption="" class="link"><span class="icon flaticon-add"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+
+                <!--Gallery Item-->
+                <div class="gallery-item col-lg-4 col-md-6 col-sm-12 wow fadeInLeft" data-wow-delay="600ms">
+                    <div class="inner-box">
+                        <figure class="image-box">
+                            <img src="/images/gallery/22.jpg" alt="">
+                            <!--Overlay Box-->
+                            <div class="overlay-box">
+                                <div class="overlay-inner">
+                                    <div class="content">
+                                        <a href="#" class="link"><span class="icon flaticon-unlink"></span></a>
+                                        <a href="/images/gallery/22.jpg" data-fancybox="gallery-2" data-caption="" class="link"><span class="icon flaticon-add"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Questions Section -->
+    <section class="questions-section">
+        <div class="auto-container">
+            <!-- Sec Title -->
+            <div class="sec-title centered">
+                <div class="title">Introduction to members</div>
+                <h2>成员介绍</h2>
+            </div>
+
+            <!-- Inner Container -->
+            <div class="inner-container">
+                <div class="row clearfix">
+
+                    <!-- Question Block -->
+                    <div class="question-block col-lg-6 col-md-12 col-sm-12">
+                        <div class="inner-box">
+                            <div class="icon-box">
+                                <span class="icon flaticon-question"></span>
+                            </div>
+                            <h3><a href="#">郝自勉</a></h3>
+                            <div class="text">所在系部：信息工程系<br>职称：副院长<br>研究方向：软件工程、物联网应用、无线MESH网络</div>
+                        </div>
+                    </div>
+
+                    <!-- Question Block -->
+                    <div class="question-block col-lg-6 col-md-12 col-sm-12">
+                        <div class="inner-box">
+                            <div class="icon-box">
+                                <span class="icon flaticon-question"></span>
+                            </div>
+                            <h3><a href="#">Is there any age restrictions?</a></h3>
+                            <div class="text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</div>
+                        </div>
+                    </div>
+
+                    <!-- Question Block -->
+                    <div class="question-block col-lg-6 col-md-12 col-sm-12">
+                        <div class="inner-box">
+                            <div class="icon-box">
+                                <span class="icon flaticon-question"></span>
+                            </div>
+                            <h3><a href="#">how to become a team member?</a></h3>
+                            <div class="text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</div>
+                        </div>
+                    </div>
+
+                    <!-- Question Block -->
+                    <div class="question-block col-lg-6 col-md-12 col-sm-12">
+                        <div class="inner-box">
+                            <div class="icon-box">
+                                <span class="icon flaticon-question"></span>
+                            </div>
+                            <h3><a href="#">Is there any reward for winners?</a></h3>
+                            <div class="text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <div class="auto-container">
+            <!--Widgets Section-->
+            <div class="widgets-section">
+                <div class="row clearfix">
+
+                    <!--Column-->
+                    <div class="column col-lg-4 col-md-6 col-sm-12">
+                        <div class="footer-widget logo-widget">
+                            <div class="logo">
+                                <a href="index.html"><img src="/images/logo.png" alt="" /></a>
+                            </div>
+                            <div class="text">There are many variations of passages of lorem ipsum available, but the majority have suffered alteration in some form by injected.</div>
+                        </div>
+                    </div>
+
+                    <!--Column-->
+                    <div class="column col-lg-4 col-md-6 col-sm-12">
+                        <div class="footer-widget links-widget">
+                            <div class="widget-content">
+                                <div class="footer-title">
+                                    <h2>Links</h2>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="column col-lg-6 col-md-6 col-sm-12">
+                                        <ul class="list">
+                                            <li><a href="#">About</a></li>
+                                            <li><a href="#">Our Team</a></li>
+                                            <li><a href="#">Gallery</a></li>
+                                            <li><a href="#">Contact</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="column col-lg-6 col-md-6 col-sm-12">
+                                        <ul class="list">
+                                            <li><a href="#">Help & Support</a></li>
+                                            <li><a href="#">Privacy Policy</a></li>
+                                            <li><a href="#">Terms of Use</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Column-->
+                    <div class="column col-lg-4 col-md-6 col-sm-12">
+                        <div class="footer-widget newsletter-widget">
+                            <div class="footer-title">
+                                <h2>Newsletter</h2>
+                            </div>
+                            <div class="text">Subsrcibe us now to get the latest news and updates</div>
+                            <div class="newsletter-form">
+                                <form method="post" action="contact.html">
+                                    <div class="form-group clearfix">
+                                        <input type="email" name="email" value="" placeholder="Email address" required>
+                                        <button type="submit" class="theme-btn newsletter-btn"><span class="fas fa-envelope"></span></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="auto-container">
+                <!--Scroll to top-->
+                <div class="scroll-to-top scroll-to-target" data-target="html"><span class="flaticon-up-arrow"></span></div>
+                <!--Scroll to top-->
+                <div class="row clearfix">
+                    <!-- Column -->
+                    <div class="column col-lg-6 col-md-12 col-sm-12">
+                        <div class="copyright">&copy; Copyrights, 2019 All Rights Reserved</div>
+                    </div>
+                    <!-- Column -->
+                    <div class="column col-lg-6 col-md-12 col-sm-12">
+                        <ul class="social-icons">
+                            <li><a href="#"><span class="fab fa-twitter"></span></a></li>
+                            <li><a href="#"><span class="fab fa-facebook-square"></span></a></li>
+                            <li><a href="#"><span class="fab fa-pinterest-p"></span></a></li>
+                            <li><a href="#"><span class="fab fa-instagram"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+</div>
+<!--End pagewrapper-->
+
+<script src="/js/jquery.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/jquery.fancybox.js"></script>
+<script src="/js/owl.js"></script>
+<script src="/js/appear.js"></script>
+<script src="/js/wow.js"></script>
+<script src="/js/scrollbar.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>
