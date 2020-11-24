@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        .product-buyer-name {
+
+            max-width: 200px;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+        }
+    </style>
+</head>
+<body>
+    <H2>欢迎进入首页管理后台</H2>
+    <h3>导航链接管理</h3> <button onclick="changeLink()">添加新的导航链接</button>
+    <table id="link-list" border="1">
+        <tr>
+            <th>序号</th>
+            <th>标题</th>
+            <th>地址</th>
+            <th>跳转方式</th>
+            <th>操作</th>
+        </tr>
+        <tr th:each="link, linkState : ${links}" th:object="${link}">
+            <td th:text="${linkState.index}"></td>
+            <td th:text="*{name}"></td>
+            <td th:text="*{url}" class="product-buyer-name"></td>
+            <td th:text="*{target=='_self'? '在当前标签页访问':'在新的标签页访问'}"></td>
+            <td><button th:onclick="|changeLink(${linkState.index})|">编辑此链接</button> <button th:onclick="|deleteObjects('/admin/linkDelete', '?id=${linkState.index}')|">删除此链接</button></td>
+        </tr>
+    </table>
+    <form id="postLink" method="post" action="/admin/linkUpdate">
+        <h2>操作导航链接：<span id="link-id">无操作</span></h2>
+        <input id="linkId" type="number" hidden name="id">
+        <span>幻灯片内容：</span><input id="linkName" type="text" name="name"><br>
+        <span>跳转地址：</span><input id="linkUrl" type="text" name="url"><br>
+        <span>跳转方式：</span><select id="linkTarget" name="target">
+        <option value="_self">在当前标签页访问</option>
+        <option value="_blank">在新的标签页访问</option>
+    </select><br>
+        <input type="submit" value="添加/更新 当前导航链接">
+    </form>
+    <h3>幻灯片管理</h3> <button onclick="changeSlide()">添加新的幻灯片</button>
+    <table id="slide-list" border="1">
+        <tr>
+            <th>序号</th>
+            <th>内容</th>
+            <th>按钮内容</th>
+            <th>跳转地址</th>
+            <th>背景图地址</th>
+            <th>跳转方式</th>
+            <th>操作</th>
+        </tr>
+        <tr th:each="slide, slideState : ${slideList}" th:object="${slide}">
+            <td th:text="${slideState.index}"></td>
+            <td th:text="*{text}"></td>
+            <td th:text="*{btnName}"></td>
+            <td th:text="*{url}" class="product-buyer-name"></td>
+            <td th:text="*{imgUrl}" class="product-buyer-name"></td>
+            <td th:text="*{target=='_self'? '在当前标签页访问':'在新的标签页访问'}"></td>
+            <td><button th:onclick="|changeSlide(${slideState.index})|">编辑此幻灯片</button> <button th:onclick="|deleteObjects('/admin/slideDelete', '?id=${slide.id}')|">删除此幻灯片</button></td>
+        </tr>
+    </table>
+    <form id="postSlide" method="post" action="/admin/slideUpdate">
+        <h2>操作幻灯片：<span id="slide-id">无操作</span></h2>
+        <input id="slideId" type="number" hidden name="id">
+        <span>幻灯片内容：</span><input id="slideText" type="text" name="text"><br>
+        <span>按钮内容：</span><input id="slideBtnName" type="text" name="btnName"><br>
+        <span>跳转地址：</span><input id="slideUrl" type="text" name="url"><br>
+        <span>背景图：</span><input id="slideImgUrl" type="text" name="imgUrl"><br>
+        <span>跳转方式：</span><select id="slideTarget" name="target">
+        <option value="_self">在当前标签页访问</option>
+        <option value="_blank">在新的标签页访问</option>
+    </select><br>
+        <input type="submit" value="添加/更新 当前幻灯片">
+    </form>
+    <h3>成员管理</h3> <button onclick="changeMember()">添加新的成员</button>
+    <table id="member-list" border="1">
+        <tr>
+            <th>序号</th>
+            <th>名称</th>
+            <th>介绍</th>
+            <th>操作</th>
+        </tr>
+        <tr th:each="member, memberState : ${memberList}" th:object="${member}">
+            <td th:text="*{id}"></td>
+            <td th:text="*{name}"></td>
+            <td th:text="*{introduce}" class="product-buyer-name"></td>
+            <td><button th:onclick="|changeMember(${memberState.index})|">编辑此成员</button> <button th:onclick="|deleteObjects('/admin/memberDelete', '?id=${member.id}')|">删除此成员</button></td>
+        </tr>
+    </table>
+    <form id="postMember" method="post" action="/admin/memberUpdate">
+        <h2>操作成员：<span id="member-id">无操作</span></h2>
+        <input id="memberId" type="number" hidden name="id">
+        <span>成员名称：</span><input id="memberName" type="text" name="name"><br>
+        <span>成员介绍：</span><input id="memberIntroduce" type="text" name="introduce"><br>
+        <input type="submit" value="添加/更新 当前成员">
+    </form>
+    <script th:inline="javascript">
+        const slideList = [[${slideList}]];
+        const linkList = [[${links}]];
+        const memberList = [[${memberList}]]
+        if ([[${ok}]]){
+            alert([[${message}]]);
+        }
+    </script>
+    <script>
+        $('#postSlide').hide();
+        $('#postLink').hide();
+        $('#postMember').hide();
+        function changeSlide(slideIndex = null) {
+            $('#postSlide').show();
+            if (slideIndex == null){ // 添加幻灯片
+                $('#slide-id').html("新增幻灯片")
+                $('#slideId').val("");
+                $('#slideText').val("");
+                $('#slideBtnName').val("");
+                $('#slideUrl').val("");
+                $('#slideImgUrl').val("");
+                $('#slideTarget').val("");
+            }else if (slideIndex <= slideList.length){ // 修改幻灯片
+                const slide = slideList[slideIndex];
+                $('#slide-id').html("修改已存在的幻灯片:"+slide.id)
+                $('#slideId').val(slide.id);
+                $('#slideText').val(slide.text);
+                $('#slideBtnName').val(slide.btnName);
+                $('#slideUrl').val(slide.url);
+                $('#slideImgUrl').val(slide.imgUrl);
+                $('#slideTarget').val(slide.target);
+            }
+        }
+
+        function changeLink(linkIndex = null) {
+            $('#postLink').show();
+            if (linkIndex == null){ // 添加幻灯片
+                $('#link-id').html("新增导航链接")
+                $('#linkId').val("-1");
+                $('#linkName').val("");
+                $('#linkTarget').val("");
+                $('#linkUrl').val("");
+            }else if (linkIndex <= linkList.length){ // 修改幻灯片
+                const link = linkList[linkIndex];
+                $('#link-id').html("修改已存在的导航链接:"+linkIndex)
+                $('#linkId').val(linkIndex);
+                $('#linkName').val(link.name);
+                $('#linkUrl').val(link.url);
+                $('#linkTarget').val(link.target);
+            }
+        }
+
+        function changeMember(memberIndex = null) {
+            $('#postMember').show();
+            if (memberIndex == null){ // 添加成员
+                $('#member-id').html("新增成员")
+                $('#memberId').val("");
+                $('#memberName').val("");
+                $('#memberIntroduce').val("");
+            }else if (memberIndex <= memberList.length){ // 修改成员
+                const member = memberList[memberIndex];
+                $('#member-id').html("修改已存在的成员:"+member.id)
+                $('#memberId').val(member.id);
+                $('#memberName').val(member.name);
+                $('#memberIntroduce').val(member.introduce);
+            }
+        }
+
+        function deleteObjects(url, param) {
+            if(confirm("确定要删除它吗？")){
+                window.location.href = url+param;
+            }
+        }
+    </script>
+</body>
+</html>
