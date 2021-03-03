@@ -50,7 +50,7 @@ public class IndexController {
                     break;
             }
         }
-        // 查询标签的名称
+        /*// 查询标签的名称
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.in("id", tagIdList.toArray());
         List<BbsTags> bbsTagsList = bbsTagsMapper.selectList(wrapper);
@@ -87,13 +87,13 @@ public class IndexController {
             }
             bbs.put("discussionsList", bbsDiscussionsList);
             bbsList.add(bbs);
-        }
+        }*/
         // 查询成员
         List<Member> memberList = memberMapper.selectList(null);
         List<Slide> slideList = slideMapper.selectList(null);
 
-        model.addAttribute("bbsList", bbsList);
-        model.addAttribute("bbsTagsList", bbsTagsList);
+        model.addAttribute("bbsList", new ArrayList<>());
+        model.addAttribute("bbsTagsList", new ArrayList<>());
         model.addAttribute("homeSetting", homeSettingMap);
         model.addAttribute("memberList", memberList);
         model.addAttribute("slideList", slideList);

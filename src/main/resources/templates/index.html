@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title th:text="${homeSetting.title}"></title>
@@ -34,7 +34,8 @@
 
                 <div class="top-left clearfix">
                     <ul class="info-list">
-                        <li>欢迎访问协同创新工作室</li>
+                        <!--/*@thymesVar id="banner" type="java.util.List<org.liuscraft.gzs.pojo.HomeSetting>"*/-->
+                        <li th:utext="${homeSetting.banner}"></li>
                     </ul>
                 </div>
 
@@ -53,11 +54,6 @@
         <div class="header-upper">
             <div class="inner-container">
                 <div class="auto-container clearfix">
-                    <!--Logo-->
-                    <div class="logo-outer">
-                        <div class="logo"><a href="index.html"><img src="/images/logo.png" alt="" title="Gamon - Digital Gaming and Esports HTML Template"></a></div>
-                    </div>
-
                     <!--Nav Box-->
                     <div class="nav-outer clearfix">
                         <!--Mobile Navigation Toggler-->
@@ -97,23 +93,6 @@
             </div>
         </div>
         <!--End Header Upper-->
-
-        <!-- Sticky Header  -->
-        <div class="sticky-header">
-            <div class="auto-container clearfix">
-                <!--Logo-->
-                <div class="logo pull-left">
-                    <a href="index.html" title=""><img src="/images/logo.png" alt="" title=""></a>
-                </div>
-                <!--Right Col-->
-                <div class="pull-right">
-                    <!-- Main Menu -->
-                    <nav class="main-menu clearfix">
-                        <!--Keep This Empty / Menu will come through Javascript-->
-                    </nav><!-- Main Menu End-->
-                </div>
-            </div>
-        </div><!-- End Sticky Menu -->
 
         <!-- Mobile Menu  -->
         <div class="mobile-menu">
